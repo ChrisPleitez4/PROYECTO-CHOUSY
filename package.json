@@ -1,0 +1,18 @@
+{
+  "name": "proyecto-chousy",
+  "version": "1.0.0",
+  "description": "Repositorio para la implementacion de  un formulario para el registro de visitantes, para la medida de productividad de la pagina web, control de crongrama y actividades",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.2"
+  }
+}
