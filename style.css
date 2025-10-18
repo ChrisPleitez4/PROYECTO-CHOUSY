@@ -1,0 +1,646 @@
+body{
+      background-color: #012955;
+    }
+    .navbar {
+      background: linear-gradient(90deg, #003366);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #ffffff !important;
+      display: flex;
+      align-items: center; 
+      gap: 10px; 
+    }
+    .navbar-brand img {
+      height: 90px;
+      width: auto;
+      border-radius: 8px; 
+    }
+    .nav-link {
+      color: #f1f1f1 !important;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #ffd700 !important;
+      transform: scale(1.05);
+    }
+
+.nosotros {
+      background: linear-gradient(135deg, #13016fe6, #0223c795);
+      color: white;
+      padding: 80px 0;
+    }
+    .nosotros .icon {
+      font-size: 3rem;
+      color: #ffd700;
+    }
+    .galeria img {
+      transition: transform 0.4s, filter 0.4s;
+    }
+    .galeria img:hover {
+      transform: scale(1.05);
+      filter: brightness(80%);
+    }
+
+    .hero-img img {
+  object-fit: cover;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+#eventos .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#eventos .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+#eventos h2 {
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+    body{
+      background-color: #012955;
+    }
+    .navbar {
+      background: linear-gradient(90deg, #003366);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #ffffff !important;
+      display: flex;
+      align-items: center; 
+      gap: 10px; 
+    }
+    .navbar-brand img {
+      height: 90px;
+      width: auto;
+      border-radius: 8px; 
+    }
+    .nav-link {
+      color: #f1f1f1 !important;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #ffd700 !important;
+      transform: scale(1.05);
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: auto; /* altura completa de la pantalla */
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      filter: brightness(70%);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    .btn-social {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-social:hover {
+      transform: scale(1.05);
+    }
+
+    .modal-content {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .social-frame {
+      width: 50%;
+      height: 50px;
+      border: none;
+      border-radius: 10px;
+    }
+    
+    .social-floating {
+      position: fixed;
+      top: 50%;
+      right: 0; /* Cambiado a derecha */
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      gap: 10px;
+    }
+
+    /* Botones circulares */
+    .social-floating a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .social-floating a img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Efecto hover */
+    .social-floating a:hover {
+      transform: scale(1.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    body {
+	font-family: Arial, sans-serif;
+	background: #c8102f95;
+	margin: 0;
+	padding: 40px 20px;
+	color: #222;
+  }
+  .title {
+	text-align: center;
+	font-family: "Segoe UI", "Verdana", "Gill Sans MT", sans-serif;
+	font-size: 2.8rem;
+	font-weight: 700;
+	color: #ffffff;
+	text-shadow: 2px 2px 6px rgba(0,0,0,0.3); 
+	margin: 40px 0 30px;
+	letter-spacing: 1px;          
+	background: linear-gradient(90deg, #004080);
+	padding: 20px;
+	border-radius: 10px;
+	display: inline-block;
+  }
+  
+  .meses {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 40px;
+  }
+  
+  .mes {
+	background: rgba(255, 255, 255, 0.85);
+	border-radius: 15px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	padding: 20px;
+	flex: 1 1 45%;
+	min-width: 350px;
+	transition: transform 0.2s;
+  }
+  
+  .mes:hover {
+	transform: scale(1.02);
+  }
+  
+  .mes header h2 {
+	text-align: center;
+	font-size: 30px;
+	color: #333;
+	margin-bottom: 20px;
+  }
+  
+  .calendario {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 15px;
+	position: relative;
+	overflow: visible; 
+	z-index: 0;
+  }
+  
+  .dia {
+	position: relative;
+	background-color: #ffffffcc;
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+	min-height: 100px;
+	transition: transform 0.2s;
+	overflow: visible;
+	z-index: 1;
+  }
+  
+  .dia:hover {
+	transform: scale(1.03);
+	z-index: 20;
+  }
+  
+  .numero {
+	font-weight: bold;
+	font-size: 20px;
+	display: block;
+	margin-bottom: 5px;
+  }
+  
+  .dia p {
+	font-size: 14px;
+	color: #333;
+	margin: 0;
+  }
+  
+  .dia .imagen {
+	position: absolute;
+	bottom: -150px;
+	left: 50%;
+	transform: translateX(-50%) translateY(10px);
+	width: 190px;
+	height: auto;
+	border-radius: 10px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+	pointer-events: none;
+	z-index: 100; 
+  }
+  
+  .dia:hover .imagen {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(-50%) translateY(0);
+  }
+
+body{
+      background-color: #012955;
+    }
+    .navbar {
+      background: linear-gradient(90deg, #003366);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #ffffff !important;
+      display: flex;
+      align-items: center; 
+      gap: 10px; 
+    }
+    .navbar-brand img {
+      height: 90px;
+      width: auto;
+      border-radius: 8px; 
+    }
+    .nav-link {
+      color: #f1f1f1 !important;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #ffd700 !important;
+      transform: scale(1.05);
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: auto; /* altura completa de la pantalla */
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      filter: brightness(70%);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    .btn-social {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-social:hover {
+      transform: scale(1.05);
+    }
+
+    .modal-content {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .social-frame {
+      width: 50%;
+      height: 50px;
+      border: none;
+      border-radius: 10px;
+    }
+    
+    .social-floating {
+      position: fixed;
+      top: 50%;
+      right: 0; /* Cambiado a derecha */
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      gap: 10px;
+    }
+
+    /* Botones circulares */
+    .social-floating a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .social-floating a img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Efecto hover */
+    .social-floating a:hover {
+      transform: scale(1.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .navbar {
+      background: linear-gradient(90deg, #003366);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #ffffff !important;
+      display: flex;
+      align-items: center; 
+      gap: 10px; 
+    }
+    .navbar-brand img {
+      height: 90px;
+      width: auto;
+      border-radius: 8px; 
+    }
+    .nav-link {
+      color: #f1f1f1 !important;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #ffd700 !important;
+      transform: scale(1.05);
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .navbar-brand img {
+      width: 150px;
+    }
+
+    .footer {
+      background-color: #6d0202;
+      padding: 20px 0;
+    }
+
+    .card-title {
+      color: rgb(184, 5, 5);
+      font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    #contacto {
+      background-color: #012955;
+    }
+
+    #contacto h2 {
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-body i {
+      font-size: 3rem;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      transition: 0.3s ease;
+    }
+
+     .title {
+	text-align: center;
+	font-family: "Segoe UI", "Verdana", "Gill Sans MT", sans-serif;
+	font-size: 2.8rem;
+	font-weight: 700;
+	color: #ffffff;
+	text-shadow: 2px 2px 6px rgba(0,0,0,0.3); 
+	margin: 40px 0 30px;
+	letter-spacing: 1px;          
+	background: linear-gradient(90deg, #004080);
+	padding: 20px;
+	border-radius: 10px;
+	display: inline-block;
+  }
+  
+  .meses {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 40px;
+  }
+  
+  .mes {
+	background: rgba(255, 255, 255, 0.85);
+	border-radius: 15px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	padding: 20px;
+	flex: 1 1 45%;
+	min-width: 350px;
+	transition: transform 0.2s;
+  }
+  
+  .mes:hover {
+	transform: scale(1.02);
+  }
+  
+  .mes header h2 {
+	text-align: center;
+	font-size: 30px;
+	color: #333;
+	margin-bottom: 20px;
+  }
+  
+  .calendario {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 15px;
+	position: relative;
+	overflow: visible; 
+	z-index: 0;
+  }
+  
+  .dia {
+	position: relative;
+	background-color: #ffffffcc;
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+	min-height: 100px;
+	transition: transform 0.2s;
+	overflow: visible;
+	z-index: 1;
+  }
+  
+  .dia:hover {
+	transform: scale(1.03);
+	z-index: 20;
+  }
+  
+  .numero {
+	font-weight: bold;
+	font-size: 20px;
+	display: block;
+	margin-bottom: 5px;
+  }
+  
+  .dia p {
+	font-size: 14px;
+	color: #333;
+	margin: 0;
+  }
+  
+  .dia .imagen {
+	position: absolute;
+	bottom: -150px;
+	left: 50%;
+	transform: translateX(-50%) translateY(10px);
+	width: 190px;
+	height: auto;
+	border-radius: 10px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+	pointer-events: none;
+	z-index: 100; 
+  }
+  
+  .dia:hover .imagen {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(-50%) translateY(0);
+  }
+

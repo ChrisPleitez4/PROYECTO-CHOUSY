@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Colegio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg fixed-top shadow">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="./img/logo f.jpeg" alt="Logo Colegio">
+        COLEGIO FERNANDO LLORT CHOUSSY
+      </a>
+
+      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="pestañas/nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="pestañas/eventos.html">Eventos</a></li>
+          <li class="nav-item"><a class="nav-link" href="pestañas/cronograma.html">Cronograma</a></li>
+          <li class="nav-item"><a class="nav-link" href="pestañas/cuotas.html">Cuotas</a></li>
+          <li class="nav-item"><a class="nav-link" href="pestañas/redes.html">Contactanos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<section id="inicio" class="position-relative">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./img/matricula.jpeg" class="d-block w-100" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+          <img src="./img/ceren.jpeg" class="d-block w-100" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+          <img src="./img/hawaii.jpeg" class="d-block w-100" alt="Imagen 3">
+        </div>
+        <div class="carousel-item">
+          <img src="./img/movie.jpeg" class="d-block w-100" alt="Imagen 4">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.4); z-index: 2;"></div>
+    <div class="hero-content position-absolute top-50 start-50 translate-middle text-center text-white" style="z-index: 3;">
+      <h1 class="display-4 fw-bold">"Un lugar para triunfadores"</h1>
+      <p class="lead mt-3">Bienvenidos al Colegio Fernando Llort Choussy</p>
+      <a href="./pestañas/nosotros.html" class="btn btn-lg text-white me-2" style="background-color: #c8102e;">Conócenos</a>
+      <a href="./pestañas/redes.html" class="btn btn-lg text-white" style="background-color: #0055a5;">Contáctanos</a>
+    </div>
+  </section>
+
+  <section class="nosotros text-center">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <i class="bi bi-book icon mb-3"></i>
+          <h5>Educación Integral</h5>
+          <p>Formamos estudiantes con valores, responsabilidad y pasión por el aprendizaje.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="bi bi-people icon mb-3"></i>
+          <h5>Comunidad Unida</h5>
+          <p>Promovemos el respeto, la solidaridad y el trabajo en equipo.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="bi bi-lightbulb icon mb-3"></i>
+          <h5>Innovación</h5>
+          <p>Usamos métodos modernos para fomentar la creatividad y pensamiento crítico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="galeria py-5 text-center">
+    <div class="container">
+      <h2 class="fw-bold mb-5 text-white">Momentos Destacados</h2>
+      <div class="row g-3">
+        <div class="col-md-4"><img src="./img/fol.jpeg" class="w-100 rounded shadow" alt="Evento 1"></div>
+        <div class="col-md-4"><img src="./img/hawaii.jpeg" class="w-100 rounded shadow" alt="Evento 2"></div>
+        <div class="col-md-4"><img src="./img/candi.jpeg" class="w-100 rounded shadow" alt="Evento 3"></div>
+      </div>
+    </div>
+  </section>
+
+   <div class="social-floating">
+    <a href="https://www.facebook.com/p/Colegio-Fernando-Llort-100070330146065/" target="_blank" style="background-color:#3b5998;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">
+    </a>
+    <a href="https://www.instagram.com/colegio_fernandollort/" target="_blank" style="background-color:#e4405f;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+    </a>
+    <a href="https://web.whatsapp.com/" target="_blank" style="background-color:#25d366;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
