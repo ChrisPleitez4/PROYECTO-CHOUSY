@@ -1,0 +1,25 @@
+#estrellas {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+#estrellas .estrella:hover,
+#estrellas .estrella.hover,
+#estrellas .estrella.seleccionada {
+  color: gold;
+}
+
+h3 
+{
+    color: #fff;
+}
+
+#estrellas span 
+{
+    color:#fff
+}
+
+#promedioEstrellas
+{
+    color:#fff
+}

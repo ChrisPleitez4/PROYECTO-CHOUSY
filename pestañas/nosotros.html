@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../css/votacion.css">
   </head>
   <body>
     <br />
@@ -59,6 +60,18 @@
         </div>
       </div>
     </nav>
+<div class="calificacion text-center my-4">
+  <h3>Califica la página:</h3>
+  <div id="estrellas">
+    <span class="estrella" data-valor="1">&#9734;</span>
+    <span class="estrella" data-valor="2">&#9734;</span>
+    <span class="estrella" data-valor="3">&#9734;</span>
+    <span class="estrella" data-valor="4">&#9734;</span>
+    <span class="estrella" data-valor="5">&#9734;</span>
+  </div>
+  <p id="mensajeCalificacion" class="mt-2 text-success"></p>
+  <p id="promedioEstrellas" class="mt-1">Promedio: 0 ⭐</p>
+</div>
 
     <section id="nosotros" class="py-5 bg-light">
       <div class="container">
@@ -340,5 +353,76 @@
       </a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+  const estrellas = document.querySelectorAll("#estrellas .estrella");
+  const mensaje = document.getElementById("mensajeCalificacion");
+  const promedio = document.getElementById("promedioEstrellas");
+  let calificacionSeleccionada = 0;
+
+  // Pintar según promedio inicial
+  async function cargarPromedio() {
+    try {
+      const res = await fetch("/promedio");
+      const data = await res.json();
+      pintarEstrellas(data.promedio);
+      promedio.textContent = `Promedio: ${data.promedio.toFixed(1)} ⭐ (${data.total} votos)`;
+    } catch (err) {
+      console.error("Error al cargar promedio:", err);
+    }
+  }
+
+  estrellas.forEach(estrella => {
+    estrella.addEventListener("mouseover", () => {
+      const valor = parseInt(estrella.dataset.valor);
+      pintarEstrellas(valor);
+    });
+
+    estrella.addEventListener("mouseout", () => {
+      pintarEstrellas(calificacionSeleccionada);
+    });
+
+    estrella.addEventListener("click", async () => {
+      calificacionSeleccionada = parseInt(estrella.dataset.valor);
+      pintarEstrellas(calificacionSeleccionada);
+
+      try {
+        const res = await fetch("/calificar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ numEstrellas: calificacionSeleccionada })
+        });
+
+        if (res.ok) {
+          mensaje.textContent = `Gracias por calificar con ${calificacionSeleccionada} estrella(s)!`;
+          cargarPromedio();
+        } else {
+          mensaje.textContent = "Error al enviar tu calificación";
+        }
+      } catch (err) {
+        console.error(err);
+        mensaje.textContent = "Error de conexión con el servidor";
+      }
+    });
+  });
+
+  function pintarEstrellas(valor) {
+    estrellas.forEach(estrella => {
+      if (parseInt(estrella.dataset.valor) <= valor) {
+        estrella.classList.add("seleccionada");
+        estrella.innerHTML = "&#9733;"; // estrella llena
+      } else {
+        estrella.classList.remove("seleccionada");
+        estrella.innerHTML = "&#9734;"; // estrella vacía
+      }
+    });
+  }
+
+  // Inicializar
+  cargarPromedio();
+});
+
+    </script>
   </body>
 </html>
