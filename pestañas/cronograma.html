@@ -34,6 +34,45 @@
   </nav>
   <body>
     <h1 class="title">Cronograma Escolar 2025</h1>
+<!--################################ BOTON PARA AGREGAR EVENTO####################################-->
+<div class="container my-4 text-center">
+  <button id="btnAgregarEvento" class="btn btn-success">Agregar Evento</button>
+</div>
+
+<!--################################ MODAL PARA AGREGAR EVENTO####################################-->
+<div class="modal fade" id="eventoModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="formEvento">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Nuevo Evento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" name="fecha" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <input type="text" name="descripcion" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="clave" class="form-label">Contraseña</label>
+            <input type="password" name="clave" class="form-control" required>
+          </div>
+          <div id="mensajeEvento" class="text-success" style="display:none;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--################################ MODAL PARA AGREGAR EVENTO####################################-->
+
 
     <div class="meses"> 
       <section class="mes">
@@ -150,6 +189,7 @@
         </div>
       </section>
       
+    <div id="eventosDinamicos"></div>  
     </div>
   </body>
 
@@ -166,4 +206,117 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const btnAgregar = document.getElementById("btnAgregarEvento");
+  const modalEl = document.getElementById("eventoModal");
+  const modal = new bootstrap.Modal(modalEl);
+  const form = document.getElementById("formEvento");
+  const mensaje = document.getElementById("mensajeEvento");
+  const PASSWORD = "1234"; // contraseña para agregar evento
+
+  // Mostrar modal
+  btnAgregar.addEventListener("click", () => {
+    modal.show();
+  });
+
+  // Envío del formulario
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const clave = formData.get("clave");
+    if (clave !== PASSWORD) {
+      alert("Contraseña incorrecta");
+      return;
+    }
+
+    const data = {
+      fecha: formData.get("fecha"),
+      descripcion: formData.get("descripcion")
+    };
+
+    try {
+      const res = await fetch("/eventos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        mensaje.style.display = "block";
+        mensaje.textContent = "Evento agregado correctamente!";
+        form.reset();
+        setTimeout(() => {
+          mensaje.style.display = "none";
+          modal.hide();
+          cargarEventos(); // recargar eventos
+        }, 1500);
+      } else {
+        alert("Error al guardar evento");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error de conexión con el servidor");
+    }
+  });
+
+  // Función para cargar eventos desde el backend
+async function cargarEventos() {
+  try {
+    const res = await fetch("/eventos");
+    const eventos = await res.json();
+
+    const contenedor = document.querySelector("#eventosDinamicos");
+    contenedor.innerHTML = ""; // Limpiar solo los nuevos
+
+    if (eventos.length === 0) {
+      contenedor.innerHTML = `<p class="text-center text-muted">No hay eventos agregados aún.</p>`;
+      return;
+    }
+
+    // Agrupar eventos por mes
+    const meses = {};
+    eventos.forEach(ev => {
+      const fecha = new Date(ev.fecha);
+      const key = fecha.toLocaleString("es-ES", { month: "long", year: "numeric" });
+      if (!meses[key]) meses[key] = [];
+      meses[key].push(ev);
+    });
+
+    // Crear HTML por mes
+    for (const mes in meses) {
+      const mesDiv = document.createElement("section");
+      mesDiv.classList.add("mes");
+      mesDiv.innerHTML = `
+        <header><h2>${mes} (Agregados)</h2></header>
+        <div class="calendario"></div>
+      `;
+      const calendario = mesDiv.querySelector(".calendario");
+
+      meses[mes].forEach(ev => {
+        const fecha = new Date(ev.fecha);
+        const diaStr = fecha.getDate().toString().padStart(2, "0");
+        const dia = document.createElement("div");
+        dia.classList.add("dia");
+        dia.innerHTML = `
+          <span class="numero">${diaStr}</span>
+          <p>${ev.descripcion}</p>
+        `;
+        calendario.appendChild(dia);
+      });
+
+      contenedor.appendChild(mesDiv);
+    }
+  } catch (error) {
+    console.error("Error al cargar eventos:", error);
+  }
+}
+  // Cargar eventos al iniciar
+  cargarEventos();
+});
+</script>
+
+
 </html>

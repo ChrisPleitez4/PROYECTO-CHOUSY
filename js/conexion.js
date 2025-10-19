@@ -64,7 +64,39 @@ app.get("/estadisticas", (req, res) => {
         });
     });
 });
+/*#################### OPERACIONES PARA crear eventos #########################################################/*/
+// POST para agregar evento
+app.post("/eventos", (req, res) => {
+  const { fecha, descripcion } = req.body; // ya no usas imagen
 
+  if (!fecha || !descripcion) {
+    return res.status(400).send("Faltan datos");
+  }
+
+  const sql = "INSERT INTO eventos (fecha, descripcion) VALUES (?, ?)";
+  conexion.query(sql, [fecha, descripcion], (err, result) => {
+    if (err) {
+      console.error(" Error al insertar evento:", err);
+      return res.status(500).send("Error al guardar el evento");
+    }
+
+    console.log(" Evento agregado:", { fecha, descripcion });
+    res.sendStatus(200);
+  });
+});
+
+// GET para obtener eventos
+app.get("/eventos", (req, res) => {
+  const sql = "SELECT * FROM eventos ORDER BY fecha ASC";
+  conexion.query(sql, (err, resultados) => {
+    if (err) {
+      console.error(" Error al obtener eventos:", err);
+      return res.status(500).send("Error al obtener eventos");
+    }
+
+    res.json(resultados); // enviar los eventos como JSON
+  });
+});
 
 
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));
