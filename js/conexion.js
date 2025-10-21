@@ -1,104 +1,116 @@
+//  SERVIDOR DEL COLEGIO CHOUSSY
+//Dependencias de node js
 const express = require("express");
 const mysql = require("mysql");
-const app = express();
 const path = require("path");
+const app = express();
+
+// Para utilizar el formato JSON
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // para usar JSON
+app.use(express.json());
+
+// Carpeta publica para servir paginas archivos etc.
 app.use(express.static(path.join(__dirname, "..")));
 
-
-//CONEXION A BD 
+// ------------- CONECTANDONOS A LA BASE DE DATOS CHOUSSY ------------
 const conexion = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "choussy"
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "choussy"
 });
 
-//MENSAJE MOSTRAR EN CMD AL CONECTAR
-conexion.connect(err => {
-    if(err) console.error("Error al conectar:", err);
-    else console.log("Conexión exitosa a la BD!");
+conexion.connect((err) => {
+  if (err) {
+    console.error("Error al conectar a la base de datos:", err);
+  } else {
+    console.log("Conexión exitosa a la base de datos!");
+  }
 });
-/*####################OPERACIONES PARA EL INDEX #########################################################/*/
-// OBTENER ROLES
+
+//RUTAS PARA ACCEDER A LA BASE DE DATOS E INSERTAR ELEMENTOS,CONSULTAR ETC.
+// ---------- 1️ Obtener roles ----------
 app.get("/roles", (req, res) => {
-    conexion.query("SELECT * FROM rol", (err, resultados) => {
-        if(err) return res.status(500).send(err);
-        res.json(resultados); // Enviar como JSON
-    });
+  const sql = "SELECT * FROM rol";
+  conexion.query(sql, (err, resultado) => {
+    if (err) return res.status(500).send("Error al obtener roles");
+    res.json(resultado); // el front espera JSON
+  });
 });
 
-// GUARDAR VISITANTE
+// ---------- 2️ Registrar visitante ----------
 app.post("/registrar", (req, res) => {
-    const { nombre, idRol } = req.body;
-    conexion.query("INSERT INTO visitante (nombre, idRol) VALUES (?, ?)", [nombre, idRol], (err, result) => {
-        if(err) return res.status(500).send("Error al registrar");
-        res.send("<h2>Visitante registrado correctamente</h2><a href='/'>Volver</a>");
-    });
+  const { nombre, idRol } = req.body;
+
+  if (!nombre || !idRol) {
+    return res.status(400).send("Datos incompletos");
+  }
+
+  const sql = "INSERT INTO visitante (nombre, idRol) VALUES (?, ?)";
+  conexion.query(sql, [nombre, idRol], (err, result) => {
+    if (err) {
+      console.error("Error al registrar visitante:", err);
+      return res.status(500).send("Error al registrar visitante");
+    }
+    res.send("Visitante registrado correctamente");
+  });
 });
 
-
-// OBTENER ESTADISTICAS
+// ---------- 3️ Obtener estadísticas ----------
 app.get("/estadisticas", (req, res) => {
-    // CONTAR EL TOTAL DE VISITANTES
-    const totalQuery = "SELECT COUNT(*) AS total FROM visitante";
-    // CONSULTAR CUANTOS POR ROL 
-    const porRolQuery = `
-        SELECT r.nombreRol, COUNT(v.idVisitante) AS total 
-        FROM visitante v
-        JOIN rol r ON v.idRol = r.idRol
-        GROUP BY r.nombreRol
-    `;
+  const totalQuery = "SELECT COUNT(*) AS total FROM visitante";
+  const porRolQuery = `
+    SELECT r.nombreRol, COUNT(v.idVisitante) AS total
+    FROM visitante v
+    JOIN rol r ON v.idRol = r.idRol
+    GROUP BY r.nombreRol
+  `;
 
-    conexion.query(totalQuery, (err, totalResult) => {
-        if (err) return res.status(500).send(err);
+  conexion.query(totalQuery, (err, totalRes) => {
+    if (err) return res.status(500).send(err);
 
-        conexion.query(porRolQuery, (err2, porRolResult) => {
-            if (err2) return res.status(500).send(err2);
+    conexion.query(porRolQuery, (err2, porRolRes) => {
+      if (err2) return res.status(500).send(err2);
 
-            res.json({
-                total: totalResult[0].total,
-                porRol: porRolResult
-            });
-        });
+      res.json({
+        total: totalRes[0].total,
+        porRol: porRolRes
+      });
     });
+  });
 });
-/*#################### OPERACIONES PARA crear eventos #########################################################/*/
-// POST para agregar evento
+
+// ---------- 4️ Guardar evento ----------
 app.post("/eventos", (req, res) => {
-  const { fecha, descripcion } = req.body; // ya no usas imagen
+  const { fecha, descripcion } = req.body;
 
   if (!fecha || !descripcion) {
-    return res.status(400).send("Faltan datos");
+    return res.status(400).send("Datos incompletos para el evento");
   }
 
   const sql = "INSERT INTO eventos (fecha, descripcion) VALUES (?, ?)";
   conexion.query(sql, [fecha, descripcion], (err, result) => {
     if (err) {
-      console.error(" Error al insertar evento:", err);
+      console.error("Error al guardar evento:", err);
       return res.status(500).send("Error al guardar el evento");
     }
-
-    console.log(" Evento agregado:", { fecha, descripcion });
-    res.sendStatus(200);
+    res.send("Evento agregado correctamente");
   });
 });
 
-// GET para obtener eventos
+// ---------- 5️ Obtener lista de eventos ----------
 app.get("/eventos", (req, res) => {
   const sql = "SELECT * FROM eventos ORDER BY fecha ASC";
-  conexion.query(sql, (err, resultados) => {
+  conexion.query(sql, (err, resultado) => {
     if (err) {
-      console.error(" Error al obtener eventos:", err);
+      console.error("Error al obtener eventos:", err);
       return res.status(500).send("Error al obtener eventos");
     }
-
-    res.json(resultados); // enviar los eventos como JSON
+    res.json(resultado);
   });
 });
-/*####################OPERACIONES PARA LOS VOTOS #########################################################/*/
-// Guardar calificación
+
+// ---------- 6️ Guardar calificación ----------
 app.post("/calificar", (req, res) => {
   const { numEstrellas } = req.body;
   if (!numEstrellas || numEstrellas < 1 || numEstrellas > 5) {
@@ -106,25 +118,30 @@ app.post("/calificar", (req, res) => {
   }
 
   const sql = "INSERT INTO votacion (numEstrellas) VALUES (?)";
-  conexion.query(sql, [numEstrellas], (err, result) => {
+  conexion.query(sql, [numEstrellas], (err) => {
     if (err) {
       console.error("Error al guardar votación:", err);
       return res.status(500).send("Error al guardar votación");
     }
-    res.sendStatus(200);
+    res.send("Voto guardado correctamente");
   });
 });
 
-
+// ---------- 7️ Obtener promedio de calificaciones ----------
 app.get("/promedio", (req, res) => {
   const sql = "SELECT AVG(numEstrellas) AS promedio, COUNT(*) AS total FROM votacion";
-  conexion.query(sql, (err, result) => {
+  conexion.query(sql, (err, resultado) => {
     if (err) return res.status(500).send("Error al obtener promedio");
-    const promedio = result[0].promedio || 0;
-    const total = result[0].total || 0;
+    const promedio = resultado[0].promedio || 0;
+    const total = resultado[0].total || 0;
     res.json({ promedio, total });
   });
 });
 
 
-app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));
+//---------------------- 8 Encender el servidotr----------------------
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor del colegio encendido en http://localhost:${PORT}`);
+});
