@@ -74,7 +74,7 @@
     </div>
   </div>
 </div>
-<!--################################ MODAL PARA AGREGAR EVENTO####################################-->
+<!--################################ FIN -MODAL PARA AGREGAR EVENTO####################################-->
 
 
     <div class="meses"> 
@@ -281,7 +281,8 @@ async function cargarEventos() {
     contenedor.innerHTML = ""; // Limpiar solo los nuevos
 
     if (eventos.length === 0) {
-      contenedor.innerHTML = `<p class="text-center text-muted">No hay eventos agregados aún.</p>`;
+ contenedor.innerHTML = `<p class="text-center text-muted" style="color: #c6dbff !important;">No hay eventos agregados aún.</p>
+`;
       return;
     }
 
