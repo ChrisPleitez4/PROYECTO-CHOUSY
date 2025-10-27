@@ -138,6 +138,16 @@ app.get("/promedio", (req, res) => {
   });
 });
 
+// ---------- 7️.5 Eliminar eventos ----------
+app.delete("/eventos/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "DELETE FROM eventos WHERE idEvento = ?";
+
+  conexion.query(sql, [id], (err) => {
+    if (err) return res.status(500).json({ error: "Error al eliminar" });
+    res.json({ mensaje: "Evento eliminado" });
+  });
+});
 
 //---------------------- 8 Encender el servidotr----------------------
 

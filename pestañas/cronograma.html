@@ -75,8 +75,31 @@
   </div>
 </div>
 <!--################################ FIN -MODAL PARA AGREGAR EVENTO####################################-->
+<!--################################ -MODAL PARA ELIMINAR EVENTO####################################-->
+<div class="modal fade" id="modalEliminar" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="formEliminar">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar evento</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Confirme la contraseña para eliminar:</p>
+          <input type="password" id="claveEliminar" class="form-control" placeholder="Contraseña">
+          <input type="hidden" id="idEliminar">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" type="submit">Eliminar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
+<!--################################ FIN -MODAL PARA ELIMINAR EVENTO####################################-->
     <div class="meses"> 
       <section class="mes">
         <header><h2>Enero 2025</h2></header>
@@ -217,14 +240,64 @@
 </body>
 
 <script>
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("btnEliminar")) {
+    const eventoId = e.target.getAttribute("data-id");
+    document.getElementById("idEliminar").value = eventoId;
+    new bootstrap.Modal(document.getElementById("modalEliminar")).show();
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const btnAgregar = document.getElementById("btnAgregarEvento");
   const modalEl = document.getElementById("eventoModal");
   const modal = new bootstrap.Modal(modalEl);
   const form = document.getElementById("formEvento");
   const mensaje = document.getElementById("mensajeEvento");
-  const PASSWORD = "1234"; // contraseña para agregar evento
+  const PASSWORD = "1234"; // contraseña para agregar evento y para eliminar evento
 
+  //ELiminar evento 
+const formEliminar = document.getElementById("formEliminar");
+formEliminar.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+    
+  const botonPresionado = document.activeElement;
+  if (botonPresionado.type === "button") {
+    return;
+  }
+
+  const id = document.getElementById("idEliminar").value;
+  const clave = document.getElementById("claveEliminar").value;
+
+  if (clave !== PASSWORD) {
+    alert("Contraseña incorrecta");
+    return;
+  }
+
+  try {
+    const res = await fetch(`/eventos/${id}`, {
+      method: "DELETE"
+    });
+
+    if (res.ok) {
+      alert(" Evento eliminado correctamente");
+      cargarEventos();
+      bootstrap.Modal.getInstance(document.getElementById("modalEliminar")).hide();
+    } else {
+      alert("Error al eliminar evento");
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Error en el servidor");
+  }
+});
+
+
+
+
+  ////////////////////
   // Mostrar modal
   btnAgregar.addEventListener("click", () => {
     modal.show();
@@ -310,9 +383,14 @@ async function cargarEventos() {
         const diaStr = fecha.getDate().toString().padStart(2, "0");
         const dia = document.createElement("div");
         dia.classList.add("dia");
+        //BOton eliminar evento
         dia.innerHTML = `
           <span class="numero">${diaStr}</span>
           <p>${ev.descripcion}</p>
+          <button class="btn btn-danger btn-sm btnEliminar" 
+          data-id="${ev.idEvento}">
+      Eliminar Evento
+  </button>
         `;
         calendario.appendChild(dia);
       });
@@ -325,6 +403,13 @@ async function cargarEventos() {
 }
   // Cargar eventos al iniciar
   cargarEventos();
+});
+
+const modalEliminarEl = document.getElementById("modalEliminar");
+
+// Limpiar solo la contraseña al abrir el modal
+modalEliminarEl.addEventListener("show.bs.modal", () => {
+  document.getElementById("claveEliminar").value = "";
 });
 </script>
 
